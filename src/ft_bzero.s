@@ -18,3 +18,4 @@ ft_bzero:
 	mov		rax,	0		;to copy
 	rep		stosb			;while (rcx--) *rdi = rax, rdi++
 	ret
+	

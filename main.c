@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/04 23:16:12 by mcanal            #+#    #+#             */
-/*   Updated: 2015/10/08 18:05:45 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/10/09 18:24:06 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,14 @@
 
 #define DEBUG	0
 
+static void		putstr(char *str)
+{
+	write(1, str, strlen(str));
+}
+
 static int		ok(void)
 {
-	printf("\033[32;01mOK\033[0m\n");
+	putstr("\033[32;01mOK\033[0m\n");
 	return (1);
 }
 
@@ -207,6 +212,7 @@ static int		test_strcat()
 	char	ctrl[42];
 	char	*ret = NULL;
 
+
 	bzero(dest, 42);
 	bzero(ctrl, 5);
 	ret = ft_strcat(dest, src);
@@ -248,7 +254,7 @@ static int		test_strdup()
 
 	ctrl = strdup("test_strdup");
 	test = ft_strdup("test_strdup");
-//	write(1, test, strlen(test));
+	putstr("zob");
 	if (strcmp(test, ctrl))
 	{
 		printf("\033[31;01mKO\033[0m test:%s ctrl:%s\n", test, ctrl);
@@ -259,78 +265,77 @@ static int		test_strdup()
 	return ok();
 }
 
-/*
 static int		test_puts()
 {
-	ft_puts("toto");
 	ft_puts("\033[32;01mOK\033[0m");
+	ft_puts(NULL);
 	return (1);
 }
-*/
+
 int				main(void)
 {
-	printf("-ft_isdigit...\t");
+	putstr("-ft_isdigit...\t");
 	test_is(ft_isdigit, isdigit);
 
-	printf("-ft_isascii...\t");
+	putstr("-ft_isascii...\t");
 	test_is(ft_isascii, isascii);
 
-	printf("-ft_isprint...\t");
+	putstr("-ft_isprint...\t");
 	test_is(ft_isprint, isprint);
 
-	printf("-ft_isalpha:...\t");
+	putstr("-ft_isalpha:...\t");
 	test_is(ft_isalpha, isalpha);
 
-	printf("-ft_isalnum:...\t");
+	putstr("-ft_isalnum:...\t");
 	test_is(ft_isalnum, isalnum);
 
-	printf("-ft_toupper:...\t");
+	putstr("-ft_toupper:...\t");
 	test_to(ft_toupper, toupper);
 
-	printf("-ft_tolower:...\t");
+	putstr("-ft_tolower:...\t");
 	test_to(ft_tolower, tolower);
 
-	printf("-ft_memset:...\t");
+	putstr("-ft_memset:...\t");
 	test_memset();
 
-	printf("-ft_bzero:...\t");
+	putstr("-ft_bzero:...\t");
 	test_bzero();
 
-	printf("-ft_memcpy:...\t");
+	putstr("-ft_memcpy:...\t");
 	test_memcpy();
 
-	printf("-ft_strlen:...\t");
+	putstr("-ft_strlen:...\t");
 	test_strlen();
 
-	printf("-ft_strcat:...\t");
+	putstr("-ft_strcat:...\t");
 	test_strcat();
 
-	printf("-ft_strdup:...\t");
+	putstr("-ft_strdup:...\t");
 	test_strdup();
 
-//	printf("-ft_puts:...\t");
-//	test_puts();
+	putstr("-ft_puts:...\t");
+	test_puts();
 
-	printf("\nBonus:\n");
-	printf("-ft_islower...\t");
+	putstr("\nBonus:\n");
+	putstr("-ft_islower...\t");
 	test_is(ft_islower, islower);
 
-	printf("-ft_isupper:...\t");
+	putstr("-ft_isupper:...\t");
 	test_is(ft_isupper, isupper);
 
-	printf("-ft_isblank:...\t");
+	putstr("-ft_isblank:...\t");
 	test_is(ft_isblank, isblank);
 
-	printf("-ft_iscntrl:...\t");
+	putstr("-ft_iscntrl:...\t");
 	test_is(ft_iscntrl, iscntrl);
 
-	printf("-ft_isgraph:...\t");
+	putstr("-ft_isgraph:...\t");
 	test_is(ft_isgraph, isgraph);
 
-	printf("-ft_ispunct:...\t");
+	putstr("-ft_ispunct:...\t");
 	test_is(ft_ispunct, ispunct);
 
-	printf("-ft_isxdigit:...");
+	putstr("-ft_isxdigit:...");
 	test_is(ft_isxdigit, isxdigit);
 
 	return 0;

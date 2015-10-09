@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/09/09 21:26:32 by mcanal            #+#    #+#              #
-#    Updated: 2015/10/08 17:39:54 by mcanal           ###   ########.fr        #
+#    Updated: 2015/10/09 19:25:20 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -32,10 +32,10 @@ DEPS =  $(OBJS:%.o=%.d)
 
 ifeq ($(shell uname), Linux)
 CC = clang-3.5 -ggdb -fsanitize=address,undefined
-ASM = nasm -f elf64 -gv
+ASM = nasm -f elf64 -gv -p
 else
-CC = clang
-ASM = nasm -f macho64
+CC = clang -g
+ASM = ~/.brew/bin/nasm -f macho64 -g --prefix _
 endif
 
 WHITE = \033[37;01m
