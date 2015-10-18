@@ -193,9 +193,10 @@ static int		test_strlen()
 		{
 			"",
 			"toto",
-			"schtroumpf"
+			"schtroumpf",
+			"schtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpf"
 		};
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 		if (ft_strlen(t[i]) != strlen(t[i]))
 		{
 			printf("\033[31;01mKO\033[0m test:%s ret:%d\n", \
@@ -249,94 +250,199 @@ static int		test_strcat()
 
 static int		test_strdup()
 {
+	char	*t[] =
+	{
+		"",
+		"toto",
+		"schtroumpf",
+		"schtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpfschtroumpf"
+	};
 	char	*test;
 	char	*ctrl;
 
-	ctrl = strdup("test_strdup");
-	test = ft_strdup("test_strdup");
-	putstr("zob");
-	if (strcmp(test, ctrl))
+	for (int i = 0; i < 4; i++)
 	{
-		printf("\033[31;01mKO\033[0m test:%s ctrl:%s\n", test, ctrl);
-		return 0;
+		ctrl = strdup(t[i]);
+		test = ft_strdup(t[i]);
+		if (strcmp(test, ctrl))
+		{
+			printf("\033[31;01mKO\033[0m test:%s ctrl:%s\n", test, ctrl);
+			return 0;
+		}
+		free(ctrl);
+		free(test);
 	}
-	free(ctrl);
-	free(test);
 	return ok();
 }
 
 static int		test_puts()
 {
 	ft_puts("\033[32;01mOK\033[0m");
-	ft_puts(NULL);
+//	ft_puts(NULL);
 	return (1);
+}
+
+static int		test_cat()
+{
+	//int fd = open("Makefile", O_RDWR);
+
+	ft_cat(-42);
+	ok();
+	ft_cat(0);
+	return 1;
+}
+
+static int		test_putstr()
+{
+	ft_putstr("\033[32;01mOK\033[0m\n");
+	return (1);
+}
+
+static int		test_putstr_fd()
+{
+	ft_putstr_fd("\033[32;01mOK\033[0m\n", 1);
+	return (1);
+}
+
+static int		test_strclr()
+{
+	char str[] = "salut salut";
+	char empty[11];
+
+	bzero(empty, 11);
+	ft_strclr(str);
+	if (memcmp(empty, str, 11))
+	{
+		printf("\033[31;01mKO\033[0m str:%s cmp:%d\n", \
+			str, memcmp(empty, str, 11));
+		return 0;
+	}
+
+	return ok();
+}
+
+static int		test_strcpy()
+{
+	char	src[] = "toto";
+	char	dest[11];
+	char	test[11];
+
+	strcpy(test, src);
+	ft_strcpy(dest, src);
+
+	if (strcmp(dest, test) || strcmp(src, dest))
+	{
+		printf("\033[31;01mKO\033[0m str:%s cmp:%d\n", \
+			dest, strcmp(dest, test));
+		return 0;
+	}
+
+	return ok();
+}
+
+
+static int		test_strncpy()
+{
+	char	src[] = "toto";
+	char	dest[11];
+	char	test[11];
+
+	strncpy(test, src, 6);
+	ft_strncpy(dest, src, 6);
+
+	if (strcmp(dest, test) || strcmp(src, dest))
+	{
+		printf("\033[31;01mKO\033[0m str:%s cmp:%d\n", \
+			dest, strcmp(dest, test));
+		return 0;
+	}
+
+	return ok();
 }
 
 int				main(void)
 {
-	putstr("-ft_isdigit...\t");
+	putstr("-ft_isdigit...\t\t");
 	test_is(ft_isdigit, isdigit);
 
-	putstr("-ft_isascii...\t");
+	putstr("-ft_isascii...\t\t");
 	test_is(ft_isascii, isascii);
 
-	putstr("-ft_isprint...\t");
+	putstr("-ft_isprint...\t\t");
 	test_is(ft_isprint, isprint);
 
-	putstr("-ft_isalpha:...\t");
+	putstr("-ft_isalpha:...\t\t");
 	test_is(ft_isalpha, isalpha);
 
-	putstr("-ft_isalnum:...\t");
+	putstr("-ft_isalnum:...\t\t");
 	test_is(ft_isalnum, isalnum);
 
-	putstr("-ft_toupper:...\t");
+	putstr("-ft_toupper:...\t\t");
 	test_to(ft_toupper, toupper);
 
-	putstr("-ft_tolower:...\t");
+	putstr("-ft_tolower:...\t\t");
 	test_to(ft_tolower, tolower);
 
-	putstr("-ft_memset:...\t");
+	putstr("-ft_memset:...\t\t");
 	test_memset();
 
-	putstr("-ft_bzero:...\t");
+	putstr("-ft_bzero:...\t\t");
 	test_bzero();
 
-	putstr("-ft_memcpy:...\t");
+	putstr("-ft_memcpy:...\t\t");
 	test_memcpy();
 
-	putstr("-ft_strlen:...\t");
+	putstr("-ft_strlen:...\t\t");
 	test_strlen();
 
-	putstr("-ft_strcat:...\t");
+	putstr("-ft_strcat:...\t\t");
 	test_strcat();
 
-	putstr("-ft_strdup:...\t");
+	putstr("-ft_strdup:...\t\t");
 	test_strdup();
 
-	putstr("-ft_puts:...\t");
+	putstr("-ft_puts:...\t\t");
 	test_puts();
 
+	putstr("-ft_cat:...\t\t");
+	test_cat();
+
 	putstr("\nBonus:\n");
-	putstr("-ft_islower...\t");
+	putstr("-ft_islower...\t\t");
 	test_is(ft_islower, islower);
 
-	putstr("-ft_isupper:...\t");
+	putstr("-ft_isupper:...\t\t");
 	test_is(ft_isupper, isupper);
 
-	putstr("-ft_isblank:...\t");
+	putstr("-ft_isblank:...\t\t");
 	test_is(ft_isblank, isblank);
 
-	putstr("-ft_iscntrl:...\t");
+	putstr("-ft_iscntrl:...\t\t");
 	test_is(ft_iscntrl, iscntrl);
 
-	putstr("-ft_isgraph:...\t");
+	putstr("-ft_isgraph:...\t\t");
 	test_is(ft_isgraph, isgraph);
 
-	putstr("-ft_ispunct:...\t");
+	putstr("-ft_ispunct:...\t\t");
 	test_is(ft_ispunct, ispunct);
 
-	putstr("-ft_isxdigit:...");
+	putstr("-ft_isxdigit:...\t");
 	test_is(ft_isxdigit, isxdigit);
+
+	putstr("-ft_putstr:...\t\t");
+	test_putstr();
+
+	putstr("-ft_putstr_fd:...\t");
+	test_putstr_fd();
+
+	putstr("-ft_strclr:...\t\t");
+	test_strclr();
+
+	putstr("-ft_strcpy:...\t\t");
+	test_strcpy();
+
+	putstr("-ft_strncpy:...\t\t");
+	test_strncpy();
 
 	return 0;
 }

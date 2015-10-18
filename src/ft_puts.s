@@ -13,12 +13,9 @@
 %define	STDOUT	1
 %define	WRITE	0x2000004
 
-
-
 section	.text
 	global	ft_puts
 	extern	ft_strlen
-
 
 ft_puts:
 	test	rdi,	rdi

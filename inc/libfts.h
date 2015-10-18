@@ -54,16 +54,10 @@ int     ft_isgraph(int c);
 int     ft_ispunct(int c);
 int     ft_isspace(int c);
 int     ft_isxdigit(int c);
-
-//TODO:
+int		ft_putstr(const char *s);
+int		ft_putstr_fd(const char *s, int fd);
 void    ft_strclr(char *s);
-int     ft_strcmp(const char *s1, const char *s2);
-int     ft_strncmp(const char *s1, const char *s2, size_t n);
 char    *ft_strcpy(char *dest, const char *src);
-char    *ft_strndup(char *src, size_t n);
-char    *ft_strchr(const char *s, int c);
-char    *ft_strrchr(const char *s, int c);
-void    *ft_memchr(const void *s, int c, size_t n);
-int     ft_memcmp(const void *s1, const void *s2, size_t n);
+char    *ft_strncpy(char *dest, const char *src, size_t n);
 
 #endif

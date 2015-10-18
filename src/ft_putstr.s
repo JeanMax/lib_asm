@@ -1,28 +1,41 @@
 ;******************************************************************************;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_strlen.s                                        :+:      :+:    :+:    ;
+;    ft_putstr.s                                        :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: mcanal <zboub@42.fr>                       +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2015/10/04 23:30:28 by mcanal            #+#    #+#              ;
-;    Updated: 2015/10/07 20:15:50 by mcanal           ###   ########.fr        ;
+;    Created: 2015/10/04 23:30:21 by mcanal            #+#    #+#              ;
+;    Updated: 2015/10/07 22:41:37 by mcanal           ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
-global	ft_strlen
-	section	.text
+%define	STDOUT	1
+%define	WRITE	0x2000004
 
-ft_strlen:
-	mov	rax,	rdi				;saving ptr_start
-	
-loop:
-	cmp	byte [rdi],	0
-	je	kthxbye					; \0, we are done
-	inc	rdi						;ptr_end++
-	jmp	loop
+section	.text
+	global	ft_putstr
+	extern	ft_strlen
 
-kthxbye:
-	sub	rax,	rdi				;returning ptr_end - ptr_start
-	neg	rax
+ft_putstr:
+	test	rdi,	rdi
+	jz		fail
+	push	rdi
+	call	ft_strlen
+	mov		rdx,		rax
+	pop		rsi
+	mov		rdi,		STDOUT
+	mov		rax,		WRITE
+	syscall
 	ret
+
+fail:
+	mov		rdx,		7
+	lea 	rsi,		[rel fail_s]
+	mov		rdi,		STDOUT
+	mov		rax,		WRITE
+	syscall
+	ret
+
+section .data
+	fail_s  db  "(null)", 10

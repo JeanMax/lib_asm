@@ -1,28 +1,27 @@
 ;******************************************************************************;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_strlen.s                                        :+:      :+:    :+:    ;
+;    ft_strcpy.s                                        :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: mcanal <zboub@42.fr>                       +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2015/10/04 23:30:28 by mcanal            #+#    #+#              ;
-;    Updated: 2015/10/07 20:15:50 by mcanal           ###   ########.fr        ;
+;    Created: 2015/10/04 23:30:40 by mcanal            #+#    #+#              ;
+;    Updated: 2015/10/07 22:07:11 by mcanal           ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
-global	ft_strlen
+global	ft_strcpy
+extern	ft_strlen
 	section	.text
 
-ft_strlen:
-	mov	rax,	rdi				;saving ptr_start
-	
-loop:
-	cmp	byte [rdi],	0
-	je	kthxbye					; \0, we are done
-	inc	rdi						;ptr_end++
-	jmp	loop
-
-kthxbye:
-	sub	rax,	rdi				;returning ptr_end - ptr_start
-	neg	rax
+ft_strcpy:
+	push	rdi
+	push	rsi
+	mov		rdi,	rsi
+	call	ft_strlen
+	inc		rax
+	mov		rcx,	rax		;counter
+	pop		rsi
+	pop		rdi
+	rep		movsb			;while (rcx--) *rdi++ = *rsi++
 	ret

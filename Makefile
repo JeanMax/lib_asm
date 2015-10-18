@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/09/09 21:26:32 by mcanal            #+#    #+#              #
-#    Updated: 2015/10/09 19:25:20 by mcanal           ###   ########.fr        #
+#    Updated: 2015/10/15 18:44:23 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -25,17 +25,18 @@ SRC =	ft_bzero.s		ft_isalpha.s	ft_isprint.s	ft_puts.s		\
 		ft_strcat.s		ft_tolower.s	ft_isalnum.s	ft_isdigit.s	\
 		ft_memset.s		ft_strdup.s		ft_toupper.s	ft_islower.s	\
 		ft_isupper.s	ft_isblank.s	ft_iscntrl.s	ft_isgraph.s	\
-		ft_ispunct.s	ft_isxdigit.s
+		ft_ispunct.s	ft_isxdigit.s	ft_putstr.s		ft_putstr_fd.s	\
+		ft_strclr.s		ft_strcpy.s		ft_strncpy.s
 SRCC =	$(SRC:%.s=src/%.s)
 OBJS =	$(SRC:%.s=$(O_DIR)/%.o)
 DEPS =  $(OBJS:%.o=%.d)
 
 ifeq ($(shell uname), Linux)
 CC = clang-3.5 -ggdb -fsanitize=address,undefined
-ASM = nasm -f elf64 -gv -p
+ASM = nasm -O2 -f elf64 -gv -p
 else
 CC = clang -g
-ASM = ~/.brew/bin/nasm -f macho64 -g --prefix _
+ASM = ~/.brew/bin/nasm -O2 -f macho64 -g --prefix _
 endif
 
 WHITE = \033[37;01m
